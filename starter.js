@@ -8,32 +8,13 @@ $(function(){
 
 		score: 0,
 
-		createBoard: function(){
+			move: function(){
 
-				var $board = $('#board').empty(); 
-				this.score = 0; 
+				var $drake = $('<div id="drake">');
 
-				var $drake = $('<div id="drake">')			
+				$drake.appendTo($('#gamePage'));
 
-				$drake.appendTo($board);
-
-				for(var r = 0; r < 10; r++){
-					var $row = $('<div>')
-							.addClass('row')
-							.appendTo($board);
-
-				for(var c = 0; c < 10; c++){
-						var $gameSpace = $('<div>')
-								.addClass('gameSpace')
-								.appendTo($row)
-								.attr('data-row', r) 
-								.attr('data-col', c)
-								}
-							}
-		//end of createBoard
-		},							
-
-		move: function(){
+				var speed = 15;
 				
 				var dir = '';
 				setInterval(move = function() {
@@ -56,7 +37,7 @@ $(function(){
 					        snake.css({"left": $("#drake").position().left - 5 + "px"});
 					    }
 					    //end of setInterval
-							}, 50); 
+							}, speed); 
 						
 						$(document).keydown(function(event){
 					    if(event.which == 40) {
@@ -71,7 +52,52 @@ $(function(){
 						//end of keydown
 						});
 			//end of move
-			}
+			},
+
+		createBoard: function(){
+
+				var $board = $('#board').empty(); 
+
+				//tried to add drake during create board - not working - drake pops up at end
+				// var $drake = $('<div id="drake">');			
+
+				this.score = 0; 
+
+				for(var r = 0; r < 10; r++){
+					var $row = $('<div>')
+							.addClass('row')
+							.appendTo($board);
+
+				for(var c = 0; c < 10; c++){
+						var $gameSpace = $('<div>')
+								.addClass('gameSpace')
+								.appendTo($row)
+								.attr('data-row', r) 
+								.attr('data-col', c)
+								}
+							}
+
+					$("#gamePage").add($board);
+
+		//end of createBoard
+		},
+
+		makeFood: function(){
+
+			setInterval(function(){
+
+			var $food = $('<div class="food">');
+
+			$food.css("top", Math.random() * window.innerHeight);
+    	$food.css("left", Math.random() * window.innerWidth);
+
+    	$food.appendTo($('body'));
+
+		}, 2000)
+
+		}					
+
+	
 
 
 
@@ -80,8 +106,11 @@ $(function(){
 
 function init() {
 	
+	// snake.createBoard();
 	snake.move();
-	snake.createBoard();
+	snake.makeFood();
+
+	
 
 }
 
