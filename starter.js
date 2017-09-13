@@ -91,7 +91,7 @@ $(function(){
 			$food.css("top", Math.random() * window.innerHeight);
     	$food.css("left", Math.random() * window.innerWidth);
 
-    	$food.appendTo($('body'));
+    	$food.appendTo($('#gamePage'));
 
 			}, 3000)
 
