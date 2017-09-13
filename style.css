@@ -4,3 +4,8 @@ h1 {
 	border: 2px dotted black;
 
 }
+
+#mainPage {
+	background: url("./images/Hotline.png");
+	margin: 0;
+}
