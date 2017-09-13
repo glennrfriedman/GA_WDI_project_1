@@ -4,12 +4,18 @@ $(function(){
 	
 	var snake = {
 
+		body: [],
+
 		score: 0,
 
 		createBoard: function(){
 
 				var $board = $('#board').empty(); 
 				this.score = 0; 
+
+				var $drake = $('<div id="drake">')			
+
+				$drake.appendTo($board);
 
 				for(var r = 0; r < 10; r++){
 					var $row = $('<div>')
@@ -24,10 +30,6 @@ $(function(){
 								.attr('data-col', c)
 								}
 							}
-
-				var $drake = $('<div id="drake">')			
-
-				$drake.appendTo($board);
 		//end of createBoard
 		},							
 
