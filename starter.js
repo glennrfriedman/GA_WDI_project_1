@@ -4,38 +4,86 @@ $(function(){
 	
 	var snake = {
 
+		score: 0,
+
+		createBoard: function(){
+
+				var $board = $('#board').empty(); 
+				this.score = 0; 
+
+				for(var r = 0; r < 10; r++){
+					var $row = $('<div>')
+							.addClass('row')
+							.appendTo($board);
+
+				for(var c = 0; c < 10; c++){
+						var $gameSpace = $('<div>')
+								.addClass('gameSpace')
+								.appendTo($row)
+								.attr('data-row', r) 
+								.attr('data-col', c)
+								}
+							}
+
+				var $drake = $('<div id="drake">')			
+
+				$drake.appendTo($board);
+		//end of createBoard
+		},							
+
 		move: function(){
+				
+				var dir = '';
+				setInterval(move = function() {
+    		var snake = $('#drake');
+    		var food = $('.food');
 
-		$(document).keydown(function(key){
+					    if(dir == 'top') {
+					        snake.css({"top": $("#drake").position().top + 5 + "px"});
+					    }
 
-		switch(parseInt(key.which, 10)) {
+					    if(dir == 'bottom') {
+					        snake.css({"top": $("#drake").position().top - 5 + "px"});
+					    }
 
-		// animation for right key
-		case 39: $("#drake").animate({left: '+=500px'}, 100);
-		break;
+					    if(dir == 'left') {
+					        snake.css({"left": $("#drake").position().left + 5 + "px"});
+					    }
 
-		// animation for left key
-		case 37: $("#drake").animate({right: '+=500px'}, 100);
-		break;
+					    if(dir == 'right') {
+					        snake.css({"left": $("#drake").position().left - 5 + "px"});
+					    }
+					    //end of setInterval
+							}, 50); 
+						
+						$(document).keydown(function(event){
+					    if(event.which == 40) {
+					        dir = 'top';
+					    } else if(event.which == 39) {
+					        dir = 'left';           
+					    } else if(event.which == 37) {
+					        dir = 'right';        
+					    } else if(event.which == 38) {
+					        dir = 'bottom';    
+					    }; 
+						//end of keydown
+						});
+			//end of move
+			}
 
-		// animation for up key
-		case 38: $("#drake").animate({bottom: '+=500px'}, 100);
-		break;
 
-		// animation for down key
-		case 40: $("#drake").animate({top: '+=500px'}, 100);
-		break;
 
-					//end of parseInt
-					}
-		//end of keydown
-		});
-	//end of move
-	}
 //end of snake
 }
 
-snake.move();
+function init() {
+	
+	snake.move();
+	snake.createBoard();
+
+}
+
+init();
 
 //end of jQuery
 });
