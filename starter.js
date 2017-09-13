@@ -86,31 +86,26 @@ $(function(){
 
 			setInterval(function(){
 
-			var $food = $('<div class="food">');
+			var $food = $('<div class="food">');	
 
 			$food.css("top", Math.random() * window.innerHeight);
     	$food.css("left", Math.random() * window.innerWidth);
 
     	$food.appendTo($('body'));
 
-		}, 2000)
+			}, 3000)
 
 		}					
 
 	
-
-
-
 //end of snake
 }
 
 function init() {
 	
-	// snake.createBoard();
+	snake.createBoard();
 	snake.move();
 	snake.makeFood();
-
-	
 
 }
 
