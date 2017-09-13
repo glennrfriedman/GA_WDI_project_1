@@ -5,7 +5,25 @@ h1 {
 
 }
 
+/*styles for body of game start page*/
 #mainPage {
 	background: url("./images/Hotline.png");
 	margin: 0;
+}
+
+/*styles for body of game page*/
+#gamePage {
+	background: url("./images/Hotline.png");
+	margin: 0;
+}
+
+/*styles for drake's head*/
+#drake {
+	background: url("./images/head5.png");
+	background-repeat: no-repeat;
+	width: 200px;
+	height: 200px;
+	position: fixed;
+  max-width: 100%;
+  box-sizing: border-box; 
 }
