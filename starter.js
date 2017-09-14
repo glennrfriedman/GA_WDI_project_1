@@ -37,7 +37,7 @@ $(function(){
 
     		//snake start in middle of the page
     		snake.css('margin', '0 auto');
-    		snake.css('bottom', '-50vh');
+    		snake.css('bottom', '-50px');
     		
     		var food = $('.food');
 
@@ -92,6 +92,8 @@ $(function(){
 
 				this.makeFood();
 
+				this.eatFood();
+
 				this.score = 0; 
 
 				for(var r = 0; r < 10; r++){
@@ -105,6 +107,8 @@ $(function(){
 													.appendTo($row)
 													.attr('data-row', r) 
 													.attr('data-col', c)
+													.css('top', r*50)
+													.css('left', c*50);
 													}
 							}
 
@@ -117,11 +121,12 @@ $(function(){
 
 		makeFood: function(){	
 
-			$food.css("top", Math.random() * window.innerHeight);
-      $food.css("left", Math.random() * window.innerWidth);
+			$food.css("top", Math.floor(Math.random() * window.innerHeight));
+      $food.css("left", Math.floor(Math.random() * window.innerWidth));
 
       $food.appendTo($('#container'));
 
+      //SHOULDN'T NEED THIS ANYMORE BECAUSE ONLY INVOKING WHEN FOOD EATEN AND BOARD MADE
 			// setInterval(function() {
    //    		$food.css("top", Math.random() * window.innerHeight);
    //    		$food.css("left", Math.random() * window.innerWidth);
@@ -144,14 +149,19 @@ $(function(){
 		},
 
 		eatFood: function() {
+			
+			var foodPosL = $food.css('left');
+			var foodPosU = $food.css('top');
 
-			if($drake.position() == $food.position()){
-				$food.css('background', 'red');
-			}
+			var headPosL = $drake.css('left');
+			var headPosU = $drake.css('top');
+
+			if(headPosL === foodPosL || headPosU === foodPosU){
+				$food.remove();
+				this.makeFood();
+		 	}
 
 			return $food;
-
-			this.makeFood();
 		
 		//end of eatFood
 		} 					
