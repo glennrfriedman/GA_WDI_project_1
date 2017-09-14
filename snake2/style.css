@@ -18,3 +18,13 @@
 	overflow: hidden;
 	position: absolute;
 }
+
+#head{
+
+	width: 2vw;
+	height: 2vw;
+	background: orange;
+	border: 1px solid black;
+	margin: 0 auto;
+
+}
