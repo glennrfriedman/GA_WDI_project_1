@@ -8,17 +8,20 @@ $(function(){
 
 		score: 0,
 
-			move: function(){
+		move: function(){
 
 				var $drake = $('<div id="drake">');
 
-				$drake.appendTo($('#gamePage'));
+				$drake.appendTo($('#container'));
 
 				var speed = 15;
 				
 				var dir = '';
+
 				setInterval(move = function() {
+    		
     		var snake = $('#drake');
+    		
     		var food = $('.food');
 
 					    if(dir == 'top') {
@@ -40,13 +43,17 @@ $(function(){
 							}, speed); 
 						
 						$(document).keydown(function(event){
-					    if(event.which == 40) {
-					        dir = 'top';
-					    } else if(event.which == 39) {
+					  
+					 		if(event.which == 40) {
+					       dir = 'top';
+					    } 
+					    else if(event.which == 39) {
 					        dir = 'left';           
-					    } else if(event.which == 37) {
+					    } 
+					    else if(event.which == 37) {
 					        dir = 'right';        
-					    } else if(event.which == 38) {
+					    } 
+					    else if(event.which == 38) {
 					        dir = 'bottom';    
 					    }; 
 						//end of keydown
@@ -68,32 +75,37 @@ $(function(){
 							.addClass('row')
 							.appendTo($board);
 
-				for(var c = 0; c < 10; c++){
-						var $gameSpace = $('<div>')
-								.addClass('gameSpace')
-								.appendTo($row)
-								.attr('data-row', r) 
-								.attr('data-col', c)
-								}
+									for(var c = 0; c < 10; c++){
+											var $square = $('<div>')
+													.addClass('square')
+													.appendTo($row)
+													.attr('data-row', r) 
+													.attr('data-col', c)
+													}
 							}
 
-					$("#gamePage").add($board);
+					// $("#gamePage").add($board);
+					// $board.appendTo($('#container'));
+					$("#container").add($board);
 
 		//end of createBoard
 		},
 
 		makeFood: function(){
 
-			setInterval(function(){
-
 			var $food = $('<div class="food">');	
 
+			$food.appendTo($('#container'));
+
 			$food.css("top", Math.random() * window.innerHeight);
-    	$food.css("left", Math.random() * window.innerWidth);
+      $food.css("left", Math.random() * window.innerWidth);
 
-    	$food.appendTo($('#gamePage'));
+			setInterval(function() {
+      		$food.css("top", Math.random() * window.innerHeight);
+      		$food.css("left", Math.random() * window.innerWidth);
+    	}, 2000)
 
-			}, 3000)
+			return $food;
 
 		}					
 

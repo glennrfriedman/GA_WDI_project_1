@@ -55,23 +55,31 @@ h1 {
 	position: relative;
 }
 
-.gameSpace {
-	width: 10vh;
-	height: 10vw;
+.square {
+	width: 10vw;
+	height: 10vh;
 	border: 1px solid black; 
 	display: inline-block;
 	padding: 0;
 	margin: 0;
 	float: left;
+	overflow: hidden;
 }
 
 .food {
-	
-	width: 10px;
+	position: absolute;
+  background-position: -100px -160px;
+  border: 3px solid black;
+  width: 110px;
+  height: 115px;
+  transition-timing-function: linear;
+
+	/*width: 10px;
 	height: 10px;
+	border-radius: 50%;
 	border: 3px solid black;
 	transition: top 2s, left 2s;
   transition-timing-function: linear;
   background-position: -100px -160px;
-
+  z-index: 1;*/
 }
