@@ -48,10 +48,12 @@ h1 {
 
 /*styles for drake's head*/
 #drake {
-	background: url("./images/head5.png");
-	background-repeat: no-repeat;
-	width: 200px;
-	height: 200px;
+	/*background: url("./images/head5.png");*/
+	/*background-repeat: no-repeat;*/
+	width: 10px;
+	height: 10px;
+	border: 3px solid black;
+	background: orange;
 	position: relative;
 	/*z-index: 1;*/
 }

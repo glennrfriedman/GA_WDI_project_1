@@ -4,11 +4,22 @@ $(function(){
 
 	var $drake = $('<div id="drake">');
 
+	// need to come back to these objects - they have key, value but not sure how those should interact
+	var head = {
+		x: 0,
+		y: 0, 
+	}
+
+	var tail = {
+		x: 0, 
+		y: 0, 
+	}
+
 	var $food = $('<div class="food">');
 
 	$drake.appendTo($('#container'));
 	
-	var snake = {
+	var game = {
 
 		body: [],
 
@@ -16,13 +27,17 @@ $(function(){
 
 		move: function(){
 
-				var speed = 15;
+				var speed = 25;
 				
 				var dir = '';
 
 				setInterval(move = function() {
     		
     		var snake = $('#drake');
+
+    		//snake start in middle of the page
+    		snake.css('margin', '0 auto');
+    		snake.css('bottom', '-50vh');
     		
     		var food = $('.food');
 
@@ -45,8 +60,8 @@ $(function(){
 					    if(dir == 'null'){
 					    		snake.css({"left": $("#drake").position().left + 0 + "px"});
 					    		snake.css({"top": $("#drake").position().top + 0 + "px"});
-					    		console.log($drake.position());
-					    		console.log($food.position());
+					    		// console.log($drake.position());
+					    		// console.log($food.position());
 					    }
 					    //end of setInterval
 							}, speed); 
@@ -75,10 +90,7 @@ $(function(){
 
 		createBoard: function(){
 
-				var $board = $('#board').empty(); 
-
-				//tried to add drake during create board - not working - drake pops up at end
-				// var $drake = $('<div id="drake">');			
+				var $board = $('#board').empty(); 		
 
 				this.score = 0; 
 
@@ -114,7 +126,10 @@ $(function(){
       		$food.css("top", Math.random() * window.innerHeight);
       		$food.css("left", Math.random() * window.innerWidth);
       		//I think this interval of 5000 needs to be a function that triggers when the food is eaten
-    	}, 5000)
+    	}, 10000)
+
+			this.eatFood();
+
 		},
 
 		//come back to this
@@ -127,14 +142,18 @@ $(function(){
 			// 		//again think this 1000 needs to only be triggered when food is "eaten"
 			// }, 1000)
 
+		//end of makeBody	
 		},
 
-		eatApple: function() {
+		eatFood: function() {
 
 			if($drake.position() == $food.position()){
 				$food.css('background', 'red');
 			}
+
 			return $food;
+		
+		//end of eatFood
 		} 					
 
 //end of snake
@@ -142,10 +161,9 @@ $(function(){
 
 function init() {
 	
-	snake.createBoard();
-	snake.move();
-	snake.makeFood();
-	snake.eatApple();
+	game.createBoard();
+	game.move();
+	game.makeFood();
 	// snake.makeBody();
 
 }
