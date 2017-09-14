@@ -2,6 +2,8 @@ $(function(){
 
 	var $board = $('#board');
 
+	var squares = []
+
 	var game = {
 
 		// "squares": [],
@@ -27,22 +29,20 @@ $(function(){
 												.attr('food', false)
 													.attr('body', false)
 														.css('top', r*50)
-															.css('left', c*50);
-															// this.squares.push($square)
+															.css('left', c*50);	
+															squares.push($square);																									
 							}
 		//end of for loop to create boxes
 		}
+
 	//end of board function in game object
 	},
 
 		createHead: function(){
 
-			var $head = $('<div id="head">');
+			var square1 = $('#1');
 
-			let test = document.getElementById('1')
-			console.log(test)
-			
-			 $head.appendTo(test);
+			square1.attr('class', 'head');
 
 			this.moveHead();
 
@@ -50,17 +50,21 @@ $(function(){
 
 		moveHead: function() {
 
-				var $sqPosition = $('#head').parent();
+				var pos = 1; 
 
-				var rowNum = parseInt($sqPosition.attr('data-row')); 
+				var square = $('#'+pos);
 
-				console.log(rowNum);
-				
+				//get current pos of head 
+				$headPos = $('#head').parent();
+			
+				let test2 =	document.getElementById('1')
+			
 				$(document).keydown(function(event){
 					  	
-					 		if(event.which == 40) {			
-					 			rowNum++;
-					 			$('.square').attr('data-row', rowNum);
+					 		if(event.which == 40) {		
+					 			pos++;
+					 			square.attr('class', 'head');
+					 			square.parent().remove('class', 'head');
 					    } 
 					    else if(event.which == 39) {
 					        dir = 'left';           
