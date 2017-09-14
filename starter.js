@@ -60,8 +60,6 @@ $(function(){
 					    if(dir == 'null'){
 					    		snake.css({"left": $("#drake").position().left + 0 + "px"});
 					    		snake.css({"top": $("#drake").position().top + 0 + "px"});
-					    		// console.log($drake.position());
-					    		// console.log($food.position());
 					    }
 					    //end of setInterval
 							}, speed); 
@@ -92,6 +90,8 @@ $(function(){
 
 				var $board = $('#board').empty(); 		
 
+				this.makeFood();
+
 				this.score = 0; 
 
 				for(var r = 0; r < 10; r++){
@@ -110,25 +110,23 @@ $(function(){
 
 					// $("#gamePage").add($board);
 					// $board.appendTo($('#container'));
-					$("#container").add($board);
+					$("#container").add($board);					
 
 		//end of createBoard
 		},
 
 		makeFood: function(){	
 
-			$food.appendTo($('#container'));
-
 			$food.css("top", Math.random() * window.innerHeight);
       $food.css("left", Math.random() * window.innerWidth);
 
-			setInterval(function() {
-      		$food.css("top", Math.random() * window.innerHeight);
-      		$food.css("left", Math.random() * window.innerWidth);
-      		//I think this interval of 5000 needs to be a function that triggers when the food is eaten
-    	}, 10000)
+      $food.appendTo($('#container'));
 
-			this.eatFood();
+			// setInterval(function() {
+   //    		$food.css("top", Math.random() * window.innerHeight);
+   //    		$food.css("left", Math.random() * window.innerWidth);
+   //    		//I think this interval of 5000 needs to be a function that triggers when the food is eaten
+   //  	}, 10000)
 
 		},
 
@@ -152,6 +150,8 @@ $(function(){
 			}
 
 			return $food;
+
+			this.makeFood();
 		
 		//end of eatFood
 		} 					
@@ -163,7 +163,8 @@ function init() {
 	
 	game.createBoard();
 	game.move();
-	game.makeFood();
+	game.eatFood();
+
 	// snake.makeBody();
 
 }
