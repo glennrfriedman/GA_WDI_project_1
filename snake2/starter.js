@@ -4,7 +4,13 @@ $(function(){
 
 	var squares = []
 
-	var body = []
+	var score = 0;
+
+	$score = $('<div id="score">')
+
+	$score.textContent = score;
+
+	$score.appendTo($('#gamePage'));
 
 	var game = {
 
@@ -79,18 +85,22 @@ $(function(){
 						},
 
 		MoveHead:  function(direction) {
+				
 				var $targetDiv = this.GetTargetDiv(direction);
 				$targetDiv.addClass("head");
 				
 				//removes food class when present 
 				if($targetDiv.hasClass("food")){
 					$targetDiv.removeClass("food");
-					// $targetDiv.addClass("body");
-					body.push($('.body'));
-					body.push($targetDiv);
+					score+10;
 					this.makeFood();
+					this.makeObsticle();
 				}
-				
+
+				if($targetDiv.hasClass("obsticle")){
+					alert('You lose!')
+				}
+
 				return $targetDiv;
 
 		},
@@ -127,17 +137,29 @@ $(function(){
 
 		makeFood: function() {
 
-			var randomNum = Math.floor(Math.random()*99);
+			var randomNum = Math.floor(Math.random()*98);
 
 			if($('.head').attr('id') !== randomNum){
 
 					var foodPos = $('#'+randomNum);
 					foodPos.attr('class', 'food');
-					foodPos.attr('food', true);
 
 				}
 			
-			}
+			}, 
+
+		makeObsticle: function() {
+
+			var randomNum = Math.floor(Math.random()*98);
+
+			if($('.head').attr('id') !== randomNum && $('.food').attr('id') !== randomNum){
+
+					var obsticlePos = $('#'+randomNum);
+					obsticlePos.attr('class', 'obsticle');
+
+				}
+
+		}
 
 //end of game object
 }
