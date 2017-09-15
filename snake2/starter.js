@@ -4,6 +4,8 @@ $(function(){
 
 	var squares = []
 
+	var body = []
+
 	var game = {
 
 		//render function
@@ -33,6 +35,8 @@ $(function(){
 							}
 		//end of for loop to create boxes
 		}
+
+			this.makeFood();
 	//end of board function in game object
 	},
 
@@ -41,6 +45,9 @@ $(function(){
 			var square1 = $('#1');
 
 			square1.attr('class', 'head');
+
+			//add the head to the body array 
+			body.unshift(square1);
 
 		},
 
@@ -114,76 +121,37 @@ $(function(){
 		
 		},
 
-// 		moveHead: function() {
+		makeFood: function() {
 
-// 				//set interval so that it is constantly updating 
-// 				// setInterval(function(){
+			var randomNum = Math.floor(Math.random()*99);
 
+			if($('.head').attr('id') !== randomNum){
 
+					var foodPos = $('#'+randomNum);
+					foodPos.attr('class', 'food');
+					foodPos.attr('food', true);
 
-// 					$(document).keydown(function(event){
-					  
-// 					  for(var i = 0; i < squares.length; i++){
+				}
+			
+			},
 
-// 					  				var currentRow = parseInt(squares[i].attr('data-row'));
-// 						 				var nextRow = currentRow; 
+		eatFood: function() {
 
-// 						 				var currentCol = parseInt(squares[i].attr('data-col'));
-// 						 				var nextCol = currentCol;		
-
-// 					 	//down arrow
-// 					 	if(event.which == 40) {
-// 					 			if(squares[i].attr('class') === "head"){	 		
-// 						 				squares[i].removeClass("head");
-// 						 				squares[i].addClass("square");
-// 						 				var findNextRow = squares.find(function(square){
-// 						 						return parseInt(square.attr('data-row')) === nextRow+1 && parseInt(square.attr('data-col')) === currentCol;
-// 						 				});
-
-// 						 				findNextRow.addClass('head');
-						 				
-	
-// 					 			}
-
-// 					 		//end of if class = head	
-// 					 		}
-					    
-					   
-// 					  else if(event.which == 39) {
-					        	
-// 					        	if(squares[i].attr('class') === "head"){
-	
-// 						 				squares[i].removeClass("head");
-// 						 				squares[i].addClass("square");
-
-// 						 				var moveNext = squares.find(function(square){
-// 						 						return parseInt(square.attr('data-row')) === nextRow && parseInt(square.attr('data-col')) === currentCol;
-// 						 				});
-
-// 						 				moveNext.addClass('head');    
-// 					    		}
-
-// 					    	} 
-
-// 					    }
-// 					    // else if(event.which == 37) {
-// 					    //     dir = 'right';        
-// 					    // } 
-// 					    // if(event.which == 38) {
-// 					    //     dir = 'bottom';    
-// 					    // }
-// 					    // else if(event.which == 32) {
-// 					    //     dir = 'null';   
-// 					    //  }
-// 						//end of keydown
-// 						});
-				
-// 				// // end of setInterval
-// 				// }, 1)
-				
+			var $currentHeadPosY = $('.head').attr('data-row');
+			
+			var $currentHeadPosX = $('.head').attr('data-col');
+			
+			var $currentFoodPosX = $('.food').attr('data-row');
 		
-// //end of moveHead
-// 	}	
+			var $currentFoodPosY = $('.food').attr('data-col');
+
+			if($currentFoodPosY == $currentHeadPosY && $currentFoodPosX == $currentHeadPosX){
+
+				console.log('this is doing something');
+
+			}
+
+		}
 
 //end of game object
 }
@@ -195,7 +163,7 @@ function init(){
 	game.createBoard();
 	game.createHead();
 	game.MoveHeadConst();
-	
+	game.eatFood();
 //end of init
 }
 
