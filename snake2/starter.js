@@ -35,7 +35,7 @@ $(function(){
 							}
 		//end of for loop to create boxes
 		}
-
+			//calling makeFood function to randomly add food class to a square
 			this.makeFood();
 	//end of board function in game object
 	},
@@ -88,7 +88,16 @@ $(function(){
 		MoveHead:  function(direction) {
 				var $targetDiv = this.GetTargetDiv(direction);
 				$targetDiv.addClass("head");
+				
+				//removes food class when present 
+				if($targetDiv.hasClass("food")){
+					$targetDiv.removeClass("food");
+					$targetDiv.addClass("body");
+					this.makeFood();
+				}
+
 				return $targetDiv;
+
 		},
 
 		MoveHeadConst: function(direction) {
@@ -137,19 +146,25 @@ $(function(){
 
 		eatFood: function() {
 
-			var $currentHeadPosY = $('.head').attr('data-row');
-			
-			var $currentHeadPosX = $('.head').attr('data-col');
-			
-			var $currentFoodPosX = $('.food').attr('data-row');
-		
-			var $currentFoodPosY = $('.food').attr('data-col');
-
-			if($currentFoodPosY == $currentHeadPosY && $currentFoodPosX == $currentHeadPosX){
-
-				console.log('this is doing something');
-
+			for (var i = 0; i < squares.length; i++){
+				if(squares[i].attr('class') === "head" && squares[i].attr('class') === ('food')){
+					console.log('food and head');
+				}
 			}
+
+			// var $currentHeadPosY = $('.head').attr('data-row');
+			
+			// var $currentHeadPosX = $('.head').attr('data-col');
+			
+			// var $currentFoodPosX = $('.food').attr('data-row');
+		
+			// var $currentFoodPosY = $('.food').attr('data-col');
+
+			// if($currentFoodPosY == $currentHeadPosY && $currentFoodPosX == $currentHeadPosX){
+
+			// 	console.log('this is doing something');
+
+			// }
 
 		}
 
