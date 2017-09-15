@@ -1,55 +1,14 @@
-var jq = $(function(){
+$(function(){
 
 	var $board = $('#board');
 
 	var squares = []
 
-	$.fn.GetTargetDiv = function(direction){
-		//direction will be "up" "down" "left" "right"
-		var $head = $(".head").removeClass("head").addClass("square");
-		var curRow = Number($head.attr("data-row"));
-		var curCol = Number($head.attr("data-col"));
-		if (direction === "up"){
-			curRow--;
-		} else if (direction === "down") {
-			curRow++;
-		} else if (direction === "left") {
-			curCol--;
-		} else if (direction === "right") {
-			curCol++;
-		}
-		var found = squares.find(function(square){
-						 						return parseInt(square.attr('data-row')) === curRow && 
-						 									 parseInt(square.attr('data-col')) === curCol;
-						 				});
-		//console.log("i am found " + found);
-		return found;
-	}
-
-	$.fn.MoveHead = function(direction) {
-		var $targetDiv = $.fn.GetTargetDiv(direction);
-		$targetDiv.addClass("head");
-		return $targetDiv;
-	}
-
-	$.fn.MoveHeadGo = function(direction) {
-		setInterval(function(){
-			$.fn.MoveHead(direction);
-		}, 1000);
-	}
-
-	var mySnakeIntervalTimer = function(direction){
-
-	};
-
-
 	var game = {
-
-		// "squares": [],
 
 		//render function
 		createBoard: function(){
-			let s = 0
+			var s = 0
 
 			for(var r = 0; r < 10; r++){
 					var $row = $('<div>')
@@ -64,7 +23,6 @@ var jq = $(function(){
 									.attr('data-row', [r]) 
 										.attr('data-col', [c])
 										 .attr('id',s)
-
 										 	//might not need 'head' attr because class of head is getting added, same with food
 											.attr('head', false)
 												.attr('food', false)
@@ -84,80 +42,148 @@ var jq = $(function(){
 
 			square1.attr('class', 'head');
 
-			this.moveHead();
-
 		},
 
-		moveHead: function() {
+		GetTargetDiv: function(direction){
+						//direction will be "up" "down" "left" "right"
+						var $head = $(".head").removeClass("head").addClass("square");
+						var curRow = Number($head.attr("data-row"));
+						var curCol = Number($head.attr("data-col"));
 
-				//set interval so that it is constantly updating 
-				// setInterval(function(){
+						if (direction === "up"){
+							curRow--;
+						
+						} else if (direction === "down") {
+							curRow++;
+						
+						} else if (direction === "left") {
+							curCol--;
+						
+						} else if (direction === "right") {
+							curCol++;
+						}
+						
+						else if (direction === "null") {
+							curCol;
+							curRow;
+						}
+
+						var found = squares.find(function(square){
+										 					return parseInt(square.attr('data-row')) === curRow && 
+										 				 					parseInt(square.attr('data-col')) === curCol;
+										 				});
+
+						//console.log("i am found " + found);
+						return found;
+
+						},
+
+		MoveHead:  function(direction) {
+				var $targetDiv = this.GetTargetDiv(direction);
+				$targetDiv.addClass("head");
+				return $targetDiv;
+		},
+
+		MoveHeadConst: function(direction) {
+
+			var speed = 250;
+
+				$(document).keydown(function(event){
+								if(event.which == 38) {
+								   direction = 'up';
+								} 
+								else if(event.which == 37) {
+								    direction = 'left';           
+								} 
+								else if(event.which == 39) {
+								    direction = 'right';        
+								} 
+								if(event.which == 40) {
+								    direction = 'down';    
+								}
+								else if(event.which == 32) {
+								    direction = 'null';   
+								 }
+							});
+			
+			setInterval(function(){
+
+					game.MoveHead(direction);
+						
+				}, speed);
+		
+		},
+
+// 		moveHead: function() {
+
+// 				//set interval so that it is constantly updating 
+// 				// setInterval(function(){
 
 
 
-					$(document).keydown(function(event){
+// 					$(document).keydown(function(event){
 					  
-					  for(var i = 0; i < squares.length; i++){
+// 					  for(var i = 0; i < squares.length; i++){
 
-					  				var currentRow = parseInt(squares[i].attr('data-row'));
-						 				var nextRow = currentRow; 
+// 					  				var currentRow = parseInt(squares[i].attr('data-row'));
+// 						 				var nextRow = currentRow; 
 
-						 				var currentCol = parseInt(squares[i].attr('data-col'));
-						 				var nextCol = currentCol;		
+// 						 				var currentCol = parseInt(squares[i].attr('data-col'));
+// 						 				var nextCol = currentCol;		
 
-					 	//down arrow
-					 	if(event.which == 40) {
-					 			if(squares[i].attr('class') === "head"){	 		
-						 				squares[i].removeClass("head");
-						 				squares[i].addClass("square");
-						 				var findNextRow = squares.find(function(square){
-						 						return parseInt(square.attr('data-row')) === nextRow+1 && parseInt(square.attr('data-col')) === currentCol;
-						 				});
+// 					 	//down arrow
+// 					 	if(event.which == 40) {
+// 					 			if(squares[i].attr('class') === "head"){	 		
+// 						 				squares[i].removeClass("head");
+// 						 				squares[i].addClass("square");
+// 						 				var findNextRow = squares.find(function(square){
+// 						 						return parseInt(square.attr('data-row')) === nextRow+1 && parseInt(square.attr('data-col')) === currentCol;
+// 						 				});
 
-						 				findNextRow.addClass('head');
+// 						 				findNextRow.addClass('head');
 						 				
 	
-					 			}
+// 					 			}
 
-					 		//end of if class = head	
-					 		}
+// 					 		//end of if class = head	
+// 					 		}
 					    
 					   
-					  else if(event.which == 39) {
+// 					  else if(event.which == 39) {
 					        	
-					        	if(squares[i].attr('class') === "head"){
+// 					        	if(squares[i].attr('class') === "head"){
 	
-						 				squares[i].removeClass("head");
-						 				squares[i].addClass("square");
+// 						 				squares[i].removeClass("head");
+// 						 				squares[i].addClass("square");
 
-						 				var moveNext = squares.find(function(square){
-						 						return parseInt(square.attr('data-row')) === nextRow && parseInt(square.attr('data-col')) === currentCol;
-						 				});
+// 						 				var moveNext = squares.find(function(square){
+// 						 						return parseInt(square.attr('data-row')) === nextRow && parseInt(square.attr('data-col')) === currentCol;
+// 						 				});
 
-						 				moveNext.addClass('head');    
-					    		}
+// 						 				moveNext.addClass('head');    
+// 					    		}
 
-					    	} 
+// 					    	} 
 
-					    }
-					    // else if(event.which == 37) {
-					    //     dir = 'right';        
-					    // } 
-					    // if(event.which == 38) {
-					    //     dir = 'bottom';    
-					    // }
-					    // else if(event.which == 32) {
-					    //     dir = 'null';   
-					    //  }
-						//end of keydown
-						});
+// 					    }
+// 					    // else if(event.which == 37) {
+// 					    //     dir = 'right';        
+// 					    // } 
+// 					    // if(event.which == 38) {
+// 					    //     dir = 'bottom';    
+// 					    // }
+// 					    // else if(event.which == 32) {
+// 					    //     dir = 'null';   
+// 					    //  }
+// 						//end of keydown
+// 						});
 				
-				// // end of setInterval
-				// }, 1)
+// 				// // end of setInterval
+// 				// }, 1)
 				
 		
-//end of moveHead
-	}	
+// //end of moveHead
+// 	}	
 
 //end of game object
 }
@@ -168,6 +194,8 @@ function init(){
 
 	game.createBoard();
 	game.createHead();
+	game.MoveHeadConst();
+	
 //end of init
 }
 
