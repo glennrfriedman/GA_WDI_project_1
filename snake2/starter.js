@@ -46,9 +46,6 @@ $(function(){
 
 			square1.attr('class', 'head');
 
-			//add the head to the body array 
-			body.unshift(square1);
-
 		},
 
 		GetTargetDiv: function(direction){
@@ -59,17 +56,13 @@ $(function(){
 
 						if (direction === "up"){
 							curRow--;
-						
 						} else if (direction === "down") {
 							curRow++;
-						
 						} else if (direction === "left") {
 							curCol--;
-						
 						} else if (direction === "right") {
 							curCol++;
 						}
-						
 						else if (direction === "null") {
 							curCol;
 							curRow;
@@ -92,10 +85,12 @@ $(function(){
 				//removes food class when present 
 				if($targetDiv.hasClass("food")){
 					$targetDiv.removeClass("food");
-					$targetDiv.addClass("body");
+					// $targetDiv.addClass("body");
+					body.push($('.body'));
+					body.push($targetDiv);
 					this.makeFood();
 				}
-
+				
 				return $targetDiv;
 
 		},
@@ -142,31 +137,7 @@ $(function(){
 
 				}
 			
-			},
-
-		eatFood: function() {
-
-			for (var i = 0; i < squares.length; i++){
-				if(squares[i].attr('class') === "head" && squares[i].attr('class') === ('food')){
-					console.log('food and head');
-				}
 			}
-
-			// var $currentHeadPosY = $('.head').attr('data-row');
-			
-			// var $currentHeadPosX = $('.head').attr('data-col');
-			
-			// var $currentFoodPosX = $('.food').attr('data-row');
-		
-			// var $currentFoodPosY = $('.food').attr('data-col');
-
-			// if($currentFoodPosY == $currentHeadPosY && $currentFoodPosX == $currentHeadPosX){
-
-			// 	console.log('this is doing something');
-
-			// }
-
-		}
 
 //end of game object
 }
@@ -178,7 +149,7 @@ function init(){
 	game.createBoard();
 	game.createHead();
 	game.MoveHeadConst();
-	game.eatFood();
+
 //end of init
 }
 
