@@ -25,6 +25,8 @@ $(function(){
 									.attr('data-row', [r]) 
 										.attr('data-col', [c])
 										 .attr('id',s)
+
+										 	//might not need 'head' attr because class of head is getting added, same with food
 											.attr('head', false)
 												.attr('food', false)
 													.attr('body', false)
@@ -50,22 +52,32 @@ $(function(){
 
 		moveHead: function() {
 
-				var pos = 1; 
+				//set interval so that it is constantly updating 
+				// setInterval(function(){
 
-				var square = $('#'+pos);
+				// iterate over squares array
 
-				//get current pos of head 
-				$headPos = $('#head').parent();
-			
-				let test2 =	document.getElementById('1')
-			
-				$(document).keydown(function(event){
-					  	
-					 		if(event.which == 40) {		
-					 			pos++;
-					 			square.attr('class', 'head');
-					 			square.parent().remove('class', 'head');
-					    } 
+				for(var i = 0; i < squares.length; i++){
+
+					var col = squares[i].attr('data-col');
+
+					var row = squares[i].attr('data-row');
+
+					var head = squares[i].attr('class');
+
+					var food = squares[i].attr('food');
+
+					var body = squares[i].attr('body');
+
+				}
+					
+					$(document).keydown(function(event){
+					  
+					 	if(event.which == 40) {		
+					 			if(head === 'head'){
+					 				remove(head);
+					 			}
+					   } 
 					    else if(event.which == 39) {
 					        dir = 'left';           
 					    } 
@@ -80,6 +92,10 @@ $(function(){
 					     }
 						//end of keydown
 						});
+
+				//end of setInterval
+			// }, 20)
+	
 		}
 
 //end of game object
