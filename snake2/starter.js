@@ -1,8 +1,47 @@
-$(function(){
+var jq = $(function(){
 
 	var $board = $('#board');
 
 	var squares = []
+
+	$.fn.GetTargetDiv = function(direction){
+		//direction will be "up" "down" "left" "right"
+		var $head = $(".head").removeClass("head").addClass("square");
+		var curRow = Number($head.attr("data-row"));
+		var curCol = Number($head.attr("data-col"));
+		if (direction === "up"){
+			curRow--;
+		} else if (direction === "down") {
+			curRow++;
+		} else if (direction === "left") {
+			curCol--;
+		} else if (direction === "right") {
+			curCol++;
+		}
+		var found = squares.find(function(square){
+						 						return parseInt(square.attr('data-row')) === curRow && 
+						 									 parseInt(square.attr('data-col')) === curCol;
+						 				});
+		//console.log("i am found " + found);
+		return found;
+	}
+
+	$.fn.MoveHead = function(direction) {
+		var $targetDiv = $.fn.GetTargetDiv(direction);
+		$targetDiv.addClass("head");
+		return $targetDiv;
+	}
+
+	$.fn.MoveHeadGo = function(direction) {
+		setInterval(function(){
+			$.fn.MoveHead(direction);
+		}, 1000);
+	}
+
+	var mySnakeIntervalTimer = function(direction){
+
+	};
+
 
 	var game = {
 
@@ -36,7 +75,6 @@ $(function(){
 							}
 		//end of for loop to create boxes
 		}
-
 	//end of board function in game object
 	},
 
@@ -55,48 +93,71 @@ $(function(){
 				//set interval so that it is constantly updating 
 				// setInterval(function(){
 
-				// iterate over squares array
 
-				for(var i = 0; i < squares.length; i++){
 
-					var col = squares[i].attr('data-col');
-
-					var row = squares[i].attr('data-row');
-
-					var head = squares[i].attr('class');
-
-					var food = squares[i].attr('food');
-
-					var body = squares[i].attr('body');
-
-				}
-					
 					$(document).keydown(function(event){
 					  
-					 	if(event.which == 40) {		
-					 			if(head === 'head'){
-					 				remove(head);
+					  for(var i = 0; i < squares.length; i++){
+
+					  				var currentRow = parseInt(squares[i].attr('data-row'));
+						 				var nextRow = currentRow; 
+
+						 				var currentCol = parseInt(squares[i].attr('data-col'));
+						 				var nextCol = currentCol;		
+
+					 	//down arrow
+					 	if(event.which == 40) {
+					 			if(squares[i].attr('class') === "head"){	 		
+						 				squares[i].removeClass("head");
+						 				squares[i].addClass("square");
+						 				var findNextRow = squares.find(function(square){
+						 						return parseInt(square.attr('data-row')) === nextRow+1 && parseInt(square.attr('data-col')) === currentCol;
+						 				});
+
+						 				findNextRow.addClass('head');
+						 				
+	
 					 			}
-					   } 
-					    else if(event.which == 39) {
-					        dir = 'left';           
-					    } 
-					    else if(event.which == 37) {
-					        dir = 'right';        
-					    } 
-					    if(event.which == 38) {
-					        dir = 'bottom';    
+
+					 		//end of if class = head	
+					 		}
+					    
+					   
+					  else if(event.which == 39) {
+					        	
+					        	if(squares[i].attr('class') === "head"){
+	
+						 				squares[i].removeClass("head");
+						 				squares[i].addClass("square");
+
+						 				var moveNext = squares.find(function(square){
+						 						return parseInt(square.attr('data-row')) === nextRow && parseInt(square.attr('data-col')) === currentCol;
+						 				});
+
+						 				moveNext.addClass('head');    
+					    		}
+
+					    	} 
+
 					    }
-					    else if(event.which == 32) {
-					        dir = 'null';   
-					     }
+					    // else if(event.which == 37) {
+					    //     dir = 'right';        
+					    // } 
+					    // if(event.which == 38) {
+					    //     dir = 'bottom';    
+					    // }
+					    // else if(event.which == 32) {
+					    //     dir = 'null';   
+					    //  }
 						//end of keydown
 						});
-
-				//end of setInterval
-			// }, 20)
-	
-		}
+				
+				// // end of setInterval
+				// }, 1)
+				
+		
+//end of moveHead
+	}	
 
 //end of game object
 }
