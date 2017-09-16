@@ -1,74 +1,68 @@
+* {box-sizing: border-box;}
+
+#gamePage {
+
+	display: flex;
+	justify-content: center;
+	
+}
+
 #container {
 	
-	height: 500px;
-	width: 500px;
+	box-sizing: border-box;
+	-webkit-box-shadow: 1px -3px 25px 6px rgba(0,0,0,1);
+	-moz-box-shadow: 1px -3px 25px 6px rgba(0,0,0,1);
+	box-shadow: 1px -3px 25px 6px rgba(0,0,0,1);
+	width: 50vw;
 	position: relative;
 	border: solid black;
+	display: flex;
+	grid-template-columns: repeat(3, 1fr);
+  grid-gap: 2px;
+	align-items: center;
+	top: 20vh;
+	border: 10px solid black;
+	margin: 2px;
+	padding: 1px;
+	text-align: center;
 
 }
 
 .square {
-	width: 5%;
-	height: 5%;
-	border: 1px solid black; 
+	width: 20px;
+	height: 20px;
 	display: inline-block;
-	padding: 0;
-	margin: 0;
-	float: left;
-	overflow: hidden;
-	position: absolute;
-}
+	border: 1px solid black;
 
-.head {
-	background: orange;
-	width: 5%;
-	height: 5%;
-	border: 1px solid black; 
-	display: inline-block;
-	padding: 0;
-	margin: 0;
-	float: left;
-	overflow: hidden;
-	position: absolute;
-}
-
-.body {
-	background: green;
-	width: 5%;
-	height: 5%;
-	border: 1px solid black; 
-	display: inline-block;
-	padding: 0;
-	margin: 0;
-	float: left;
-	overflow: hidden;
-	position: absolute;
 }
 
 .food {
 	background: blue;
-	width: 5%;
-	height: 5%;
+	width: 20px;
+	height: 20px;
 	border: 1px solid black; 
 	display: inline-block;
-	padding: 0;
-	margin: 0;
-	float: left;
-	overflow: hidden;
-	position: absolute;
+	/*float: right;
+	left: -50%; /* or right 50% */*/
+/*	text-align: left;*/
+}
+
+.head {
+	background: orange;
+	width: 20px;
+	height: 20px;
+	border: 1px solid black; 
+	display: inline-block;
+
 }
 
 .obsticle {
 	background: red;
-	width: 5%;
-	height: 5%;
+	width: 20px;
+	height: 20px;
 	border: 1px solid black; 
 	display: inline-block;
-	padding: 0;
-	margin: 0;
-	float: left;
-	overflow: hidden;
-	position: absolute;
+
 }
 
 #score {
@@ -77,3 +71,5 @@
 	font-size: 5px;
 	color: black;
 }
+
+

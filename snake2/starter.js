@@ -1,6 +1,6 @@
 $(function(){
 
-	var $board = $('#board');
+	var $board = $('#container');
 
 	var squares = []
 
@@ -18,14 +18,14 @@ $(function(){
 		createBoard: function(){
 			var s = 0
 
-			for(var r = 0; r < 10; r++){
-					var $row = $('<div>')
+			for(var r = 0; r < 20; r++){
+					var $row = $('<tr>')
 							.addClass('row')
 							.appendTo($board);
 
-			for(var c = 0; c < 10; c++){
+			for(var c = 0; c < 20; c++){
 				s++
-					var $square = $('<div>')
+					var $square = $('<td>')
 							.addClass('square')
 								.appendTo($row)
 									.attr('data-row', [r]) 
@@ -34,9 +34,7 @@ $(function(){
 										 	//might not need 'head' attr because class of head is getting added, same with food
 											.attr('head', false)
 												.attr('food', false)
-													.attr('body', false)
-														.css('top', r*50)
-															.css('left', c*50);	
+													.attr('body', false)											
 															squares.push($square);																									
 							}
 		//end of for loop to create boxes
@@ -60,13 +58,13 @@ $(function(){
 						var curRow = Number($head.attr("data-row"));
 						var curCol = Number($head.attr("data-col"));
 
-						if (direction === "up"){
+						if (direction === "left"){
 							curRow--;
-						} else if (direction === "down") {
-							curRow++;
-						} else if (direction === "left") {
-							curCol--;
 						} else if (direction === "right") {
+							curRow++;
+						} else if (direction === "up") {
+							curCol--;
+						} else if (direction === "down") {
 							curCol++;
 						}
 						else if (direction === "null") {
@@ -137,7 +135,7 @@ $(function(){
 
 		makeFood: function() {
 
-			var randomNum = Math.floor(Math.random()*98);
+			var randomNum = Math.floor(Math.random()*squares.length);
 
 			if($('.head').attr('id') !== randomNum){
 
@@ -150,7 +148,7 @@ $(function(){
 
 		makeObsticle: function() {
 
-			var randomNum = Math.floor(Math.random()*98);
+			var randomNum = Math.floor(Math.random()*squares.length);
 
 			if($('.head').attr('id') !== randomNum && $('.food').attr('id') !== randomNum){
 
