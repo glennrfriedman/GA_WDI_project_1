@@ -92,6 +92,15 @@ $(function(){
 					$targetDiv.removeClass("food");
 					this.makeFood();
 					this.makeObsticle();
+					if(obsticle >= 10){
+						score+=15;
+					}
+					else if(obsticle >= 20){
+						score+=20;
+					}
+					else if(obsticle >= 30){
+						score+=50;
+					}
 					score+=10;
 					document.getElementById("score").textContent = "Score: " + score;
 					console.log(score);
