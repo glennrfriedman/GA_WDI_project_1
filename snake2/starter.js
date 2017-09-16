@@ -4,13 +4,13 @@ $(function(){
 
 	var squares = []
 
-	var score = 0;
+	var score = 0; 
 
-	$score = $('<div id="score">')
+	document.getElementById("score").textContent = "Score: " + score;
 
-	$score.textContent = score;
+	var obsticle = 0; 
 
-	$score.appendTo($('#gamePage'));
+	document.getElementById("obsticles").textContent = "Obsticles: " + obsticle;
 
 	var game = {
 
@@ -90,9 +90,11 @@ $(function(){
 				//removes food class when present 
 				if($targetDiv.hasClass("food")){
 					$targetDiv.removeClass("food");
-					score+10;
 					this.makeFood();
 					this.makeObsticle();
+					score+=10;
+					document.getElementById("score").textContent = "Score: " + score;
+					console.log(score);
 				}
 
 				if($targetDiv.hasClass("obsticle")){
@@ -105,7 +107,14 @@ $(function(){
 
 		MoveHeadConst: function(direction) {
 
-			var speed = 250;
+			//FAST
+			var speed = 100;
+
+			//FAST
+			// var speed = 100;
+
+			//FAST
+			// var speed = 100;
 
 				$(document).keydown(function(event){
 								if(event.which == 38) {
@@ -156,6 +165,10 @@ $(function(){
 					obsticlePos.attr('class', 'obsticle');
 
 				}
+
+			obsticle+=1
+				
+			document.getElementById("obsticles").textContent = "Obsticles: " + obsticle;
 
 		}
 

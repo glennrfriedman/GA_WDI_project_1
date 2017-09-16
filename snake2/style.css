@@ -1,11 +1,37 @@
-* {box-sizing: border-box;}
-
 #gamePage {
 
 	display: flex;
-	justify-content: center;
-	
+	align-content: center;
+	flex-direction: column;
+	align-items: center;
+	font-family: 'VT323', monospace;
+
 }
+
+h1 {
+	
+	font-size: 60px;
+	padding: 1%;
+	border: 2px dotted black;
+	background: yellow;	
+	display: flex;
+	flex-direction: column;
+
+
+}
+
+#score {	
+	font-size: 40px;
+	padding: 1px;
+	margin: 10px;
+}
+
+#obsticles {	
+	font-size: 40px;
+	padding: 1px;
+	margin: 10px;
+}
+
 
 #container {
 	
@@ -20,7 +46,6 @@
 	grid-template-columns: repeat(3, 1fr);
   grid-gap: 2px;
 	align-items: center;
-	top: 20vh;
 	border: 10px solid black;
 	margin: 2px;
 	padding: 1px;
@@ -32,7 +57,7 @@
 	width: 20px;
 	height: 20px;
 	display: inline-block;
-	border: 1px solid black;
+	/*border: 1px solid black;*/
 
 }
 
@@ -40,7 +65,7 @@
 	background: blue;
 	width: 20px;
 	height: 20px;
-	border: 1px solid black; 
+	/*border: 1px solid black;*/ 
 	display: inline-block;
 	/*float: right;
 	left: -50%; /* or right 50% */*/
@@ -51,7 +76,7 @@
 	background: orange;
 	width: 20px;
 	height: 20px;
-	border: 1px solid black; 
+	/*border: 1px solid black;*/ 
 	display: inline-block;
 
 }
@@ -60,16 +85,10 @@
 	background: red;
 	width: 20px;
 	height: 20px;
-	border: 1px solid black; 
+	/*border: 1px solid black;*/ 
 	display: inline-block;
 
 }
 
-#score {
-	width: 10px
-	height: 10px;
-	font-size: 5px;
-	color: black;
-}
 
 
