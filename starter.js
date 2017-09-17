@@ -1,5 +1,17 @@
 $(function(){
 
+	// $('.popup').click(function(){
+	// 	$('#instructions').toggleClass('.hide');
+	// 	$('#instructions').css({
+	// 		"width":"650px", 
+	// 		"background":"white",
+	// 		"border":"solid black",
+	// 		"-webkit-box-shadow":"1px -3px 25px 6px rgba(0,0,0,1)",
+	// 		"-moz-box-shadow":"1px -3px 25px 6px rgba(0,0,0,1)",
+	// 		"box-shadow":"1px -3px 25px 6px rgba(0,0,0,1)"
+	// 	});
+	// })
+
 	var $board = $('#container');
 
 	var squares = []
@@ -12,14 +24,24 @@ $(function(){
 
 	document.getElementById("obsticles").textContent = "Obsticles: " + obsticle;
 
+	//FAST
+	var speed = 125;
+
+	//SLOW
+	// var speed = 150
+	//MEDIUM
+	// var speed = 125;
+
 	var game = {
 
+		//issue with head taking on direction after game resets 
 		reset: function() {
 
 			score = 0;
-			obsticle = 0; 
-			squares.remove();
-			init();
+			obsticle = 0;
+			this.makeFood();
+			this.createHead();
+			// this.GetTargetDiv("null");   
 
 		// 	for(var i = 0; i < squares.length; i++){
 		// 		if(squares[i].hasClass('obsticle' || squares[i].hasClass('food')) || squares[i].hasClass('head')){
@@ -100,6 +122,9 @@ $(function(){
 							curRow;
 						}
 
+						//find for reset - look for if now class has a head and if that's the case then reset
+						//COME BACK TO!
+
 						//finds next square
 						var found = squares.find(function(square){
 										 					return parseInt(square.attr('data-row')) === curRow && 
@@ -111,13 +136,12 @@ $(function(){
 
 						},
 
-		stopHead: function(){
+		// //working to stop head from moving - NOT INVOKED 					
+		// stopHead: function(){
 
-				var $targetDiv = this.GetTargetDiv(direction);
+		// 		speed = 0; 
 
-				$targetDiv = 'null';
-
-		},
+		// },
 
 		MoveHead:  function(direction) {
 				//target div directoin
@@ -151,10 +175,14 @@ $(function(){
 
 				//end game when obsticle is hit 
 				if($targetDiv.hasClass("obsticle")){
-					this.stopHead();
+					$('.food').removeClass("food").addClass('square');
+					$('.obsticle').removeClass("obsticle").addClass('square');
+					$('.head').removeClass("head").addClass('square');
+					this.reset();	
 					setTimeout(function(){
+						//not getting correct score. 
 						alert('GAME OVER! YOUR SCORE WAS ' + score + '!')
-					}, 500);
+					}, 1);
 				}
 
 				//WORK ON END GAME WHEN WALL IS HIT 
@@ -171,15 +199,6 @@ $(function(){
 		},
 
 		MoveHeadConst: function(direction) {
-
-			//FAST
-			var speed = 125;
-
-			//SLOW
-			// var speed = 150;
-
-			//MEDIUM
-			// var speed = 125;
 
 				//sets keydown on interval making snake move by setting direction
 				$(document).keydown(function(event){

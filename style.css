@@ -11,9 +11,44 @@
 
 }
 
+#mainPage{
+	display: flex;
+	align-content: center;
+	flex-direction: column;
+	align-items: center;
+	font-family: 'VT323', monospace;
+	background: #1C45FF;
+}
+
+#button, #button>a {
+	text-decoration: none;
+	color: black;
+	margin: 40px;
+	font-size: 60px;
+	padding: 2px;
+
+}
+
+#button:hover {
+	background: white;
+	border: 3px dotted black;
+}
+
+.hide {
+	display: none;
+}
+
+.show {
+	display: block;
+}
+
+#mainPageHead {
+	font-size: 80px;
+}
+
 h1 {	
 	text-align: center;
-	width: 45vw;
+	width: 700px;
 	font-size: 45px;
 	padding: 1%;
 	border: 3px dotted black;
@@ -41,13 +76,13 @@ h1 {
 	-webkit-box-shadow: 1px -3px 25px 6px rgba(0,0,0,1);
 	-moz-box-shadow: 1px -3px 25px 6px rgba(0,0,0,1);
 	box-shadow: 1px -3px 25px 6px rgba(0,0,0,1);
-	width: 50vw;
+	width: 750px;
 	/*position: relative;*/
 	border: solid black;
 	display: flex;
 	align-items: center;
 	border: 10px solid black;
-	margin-top: -20px;
+	margin-top: -1%;
 	padding: 1px;
 	text-align: center;
 
@@ -82,10 +117,10 @@ h1 {
 }
 
 .obsticle {
-	background: black;
+	background: red;
 	width: 20px;
 	height: 20px;
-	/*border: 1px solid black;*/ 
+	border: 1px solid black; 
 	display: inline-block;
 
 }
