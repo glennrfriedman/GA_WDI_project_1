@@ -1,185 +1,261 @@
-console.log('linked up');
-
 $(function(){
 
-	var $drake = $('<div id="drake">');
+	var $board = $('#container');
 
-	// need to come back to these objects - they have key, value but not sure how those should interact
-	var head = {
-		x: 0,
-		y: 0, 
-	}
+	var squares = []
 
-	var tail = {
-		x: 0, 
-		y: 0, 
-	}
+	var score = 0; 
 
-	var $food = $('<div class="food">');
+	document.getElementById("score").textContent = "Score: " + score;
 
-	$drake.appendTo($('#container'));
-	
+	var obsticle = 0; 
+
+	document.getElementById("obsticles").textContent = "Obsticles: " + obsticle;
+
 	var game = {
 
-		body: [],
+		reset: function() {
 
-		score: 0,
+			score = 0;
+			obsticle = 0; 
+			squares.remove();
+			init();
 
-		move: function(){
+		// 	for(var i = 0; i < squares.length; i++){
+		// 		if(squares[i].hasClass('obsticle' || squares[i].hasClass('food')) || squares[i].hasClass('head')){
+		// 			squares[i].removeClass('obsticle')
+		// 			squares[i].removeClass('food');
+		// 			squares[i].removeClass('head');
+		// 			squares[i].addClass('square');
+		// 		}
 
-				var speed = 25;
-				
-				var dir = '';
+		// 	this.createHead();
 
-				setInterval(move = function() {
-    		
-    		var snake = $('#drake');
+		// }
 
-    		//snake start in middle of the page
-    		snake.css('margin', '0 auto');
-    		snake.css('bottom', '-50px');
-    		
-    		var food = $('.food');
+		},
 
-					    if(dir == 'top') {
-					        snake.css({"top": $("#drake").position().top + 5 + "px"});
-					    }
-
-					    if(dir == 'bottom') {
-					        snake.css({"top": $("#drake").position().top - 5 + "px"});
-					    }
-
-					    if(dir == 'left') {
-					        snake.css({"left": $("#drake").position().left + 5 + "px"});
-					    }
-
-					    if(dir == 'right') {
-					        snake.css({"left": $("#drake").position().left - 5 + "px"});
-					    }
-
-					    if(dir == 'null'){
-					    		snake.css({"left": $("#drake").position().left + 0 + "px"});
-					    		snake.css({"top": $("#drake").position().top + 0 + "px"});
-					    }
-					    //end of setInterval
-							}, speed); 
-						
-						$(document).keydown(function(event){
-					  
-					 		if(event.which == 40) {
-					       dir = 'top';
-					    } 
-					    else if(event.which == 39) {
-					        dir = 'left';           
-					    } 
-					    else if(event.which == 37) {
-					        dir = 'right';        
-					    } 
-					    if(event.which == 38) {
-					        dir = 'bottom';    
-					    }
-					    else if(event.which == 32) {
-					        dir = 'null';   
-					     }
-						//end of keydown
-						});
-			//end of move
-			},
-
+		//render function
 		createBoard: function(){
+			//var that assigns # to each square
+			var s = 0
 
-				var $board = $('#board').empty(); 		
-
-				this.makeFood();
-
-				this.eatFood();
-
-				this.score = 0; 
-
-				for(var r = 0; r < 10; r++){
-					var $row = $('<div>')
+			//creates rows for grid 
+			for(var r = 0; r < 20; r++){
+					var $row = $('<tr>')
 							.addClass('row')
 							.appendTo($board);
 
-									for(var c = 0; c < 10; c++){
-											var $square = $('<div>')
-													.addClass('square')
-													.appendTo($row)
-													.attr('data-row', r) 
-													.attr('data-col', c)
-													.css('top', r*50)
-													.css('left', c*50);
-													}
+			//creates columns for grid, assigns classes and attributes, 
+			for(var c = 0; c < 20; c++){
+				s++
+					var $square = $('<td>')
+							.addClass('square')
+								.appendTo($row)
+									.attr('data-row', [r]) 
+										.attr('data-col', [c])
+										 .attr('id',s)										 
+										 	//might not need 'head' attr because class of head is getting added, same with food
+											// .attr('head', false)
+											// 	.attr('food', false)
+											// 		.attr('body', false)											
+															squares.push($square);																									
 							}
+		//end of for loop to create boxes
+		}
+			//calling makeFood function to randomly add food class to a square
+			this.makeFood();
+	//end of board function in game object
+	},
 
-					// $("#gamePage").add($board);
-					// $board.appendTo($('#container'));
-					$("#container").add($board);					
+		createHead: function(){
 
-		//end of createBoard
-		},
+			var square1 = $('#1');
 
-		makeFood: function(){	
-
-			$food.css("top", Math.floor(Math.random() * window.innerHeight));
-      $food.css("left", Math.floor(Math.random() * window.innerWidth));
-
-      $food.appendTo($('#container'));
-
-      //SHOULDN'T NEED THIS ANYMORE BECAUSE ONLY INVOKING WHEN FOOD EATEN AND BOARD MADE
-			// setInterval(function() {
-   //    		$food.css("top", Math.random() * window.innerHeight);
-   //    		$food.css("left", Math.random() * window.innerWidth);
-   //    		//I think this interval of 5000 needs to be a function that triggers when the food is eaten
-   //  	}, 10000)
+			square1.attr('class', 'head');
 
 		},
 
-		//come back to this
-		makeBody: function(){
+		GetTargetDiv: function(direction){
 
-			// setInterval(function() {
+						//direction will be "up" "down" "left" "right"
+						//var that removes the head from each square
+						var $head = $(".head").removeClass("head").addClass("square");
+						//gets current row and column
+						var curRow = Number($head.attr("data-row"));
+						var curCol = Number($head.attr("data-col"));
 
-			// 		$body = $('<div id="body">');
-			// 		$body.appendTo($drake);
-			// 		//again think this 1000 needs to only be triggered when food is "eaten"
-			// }, 1000)
+						//creates movement of head and pause on spacebar
+						if (direction === "left"){
+							curRow--;
+						} else if (direction === "right") {
+							curRow++;
+						} else if (direction === "up") {
+							curCol--;
+						} else if (direction === "down") {
+							curCol++;
+						}
+						else if (direction === "null") {
+							curCol;
+							curRow;
+						}
 
-		//end of makeBody	
+						//finds next square
+						var found = squares.find(function(square){
+										 					return parseInt(square.attr('data-row')) === curRow && 
+										 				 					parseInt(square.attr('data-col')) === curCol;
+										 				});
+
+						//console.log("i am found " + found);
+						return found;
+
+						},
+
+		stopHead: function(){
+
+				var $targetDiv = this.GetTargetDiv(direction);
+
+				$targetDiv = 'null';
+
 		},
 
-		eatFood: function() {
+		MoveHead:  function(direction) {
+				//target div directoin
+				var $targetDiv = this.GetTargetDiv(direction);
+				//adds class of head to the next targetDiv
+				$targetDiv.addClass("head");
+				
+				//removes food when head moves over it
+				if($targetDiv.hasClass("food")){
+					$targetDiv.removeClass("food");
+					//makes another food 
+					this.makeFood();
+					//makes another obsticle 
+					this.makeObsticle();
+					//creates obsticle bonuses 
+					if(obsticle < 10){
+						score+=10;
+					}
+					else if(obsticle > 10 && obsticle < 20){
+						score+=20;
+					}
+					else if(obsticle > 20 && obsticle < 30){
+						score+=30;
+					}
+				  else if(obsticle > 30){
+						score+=50;
+					}
+					//update score text 
+					document.getElementById("score").textContent = "Score: " + score;
+				}
+
+				//end game when obsticle is hit 
+				if($targetDiv.hasClass("obsticle")){
+					this.stopHead();
+					setTimeout(function(){
+						alert('GAME OVER! YOUR SCORE WAS ' + score + '!')
+					}, 500);
+				}
+
+				//WORK ON END GAME WHEN WALL IS HIT 
+				// else if($targetDiv.hasClass()) {
+				// 	setTimeout(function(){
+				// 		alert('GAME OVER! YOUR SCORE WAS ' + score  + '!')
+				// 	}, 1);
+				// 	this.reset();
+	
+				// }
+
+				return $targetDiv;
+
+		},
+
+		MoveHeadConst: function(direction) {
+
+			//FAST
+			var speed = 125;
+
+			//SLOW
+			// var speed = 150;
+
+			//MEDIUM
+			// var speed = 125;
+
+				//sets keydown on interval making snake move by setting direction
+				$(document).keydown(function(event){
+								if(event.which == 38) {
+								   direction = 'up';
+								} 
+								else if(event.which == 37) {
+								    direction = 'left';           
+								} 
+								else if(event.which == 39) {
+								    direction = 'right';        
+								} 
+								if(event.which == 40) {
+								    direction = 'down';    
+								}
+								else if(event.which == 32) {
+								    direction = 'null';   
+								 }
+							});
 			
-			var foodPosL = $food.css('left');
-			var foodPosU = $food.css('top');
+			setInterval(function(){
 
-			var headPosL = $drake.css('left');
-			var headPosU = $drake.css('top');
-
-			if(headPosL === foodPosL || headPosU === foodPosU){
-				$food.remove();
-				this.makeFood();
-		 	}
-
-			return $food;
+					game.MoveHead(direction);
+						
+				}, speed);
 		
-		//end of eatFood
-		} 					
+		},
 
-//end of snake
+		makeFood: function() {
+
+			//gets random number of square
+			var randomNum = Math.floor(Math.random()*squares.length);
+			//if the head doesn't have the same square # as a randomNUm generated then create a new food
+			if($('.head').attr('id') !== randomNum){
+
+					var foodPos = $('#'+randomNum);
+					foodPos.attr('class', 'food');
+
+				}
+			
+			}, 
+
+		//same function as make Food but also updates obsticles count and text
+		makeObsticle: function() {
+
+			var randomNum = Math.floor(Math.random()*squares.length);
+
+			if($('.head').attr('id') !== randomNum && $('.food').attr('id') !== randomNum){
+
+					var obsticlePos = $('#'+randomNum);
+					obsticlePos.attr('class', 'obsticle');
+
+				}
+
+			obsticle+=1
+				
+			document.getElementById("obsticles").textContent = "Obsticles: " + obsticle;
+
+		}
+
+//end of game object
 }
 
-function init() {
-	
+// console.log(game.squares);
+
+//initializes game
+function init(){
+
 	game.createBoard();
-	game.move();
-	game.eatFood();
+	game.createHead();
+	game.MoveHeadConst();
 
-	// snake.makeBody();
-
+//end of init
 }
 
 init();
 
-//end of jQuery
-});
+//end of jQuery 
+}); 

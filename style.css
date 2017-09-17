@@ -1,97 +1,94 @@
-h1 {
-	
-	font-size: 40px;
-	border: 2px dotted black;
-
-}
-
-/*styles for body of game start page*/
-#mainPage {
-	/*allows background image to take up entire page*/
-	background: url("./images/Hotline.png") no-repeat center center fixed;
-	margin: 0;
-  -webkit-background-size: cover;
-  -moz-background-size: cover;
-  -o-background-size: cover;
-  background-size: cover;
-  
-  /*added from duck hunt*/
-  image-rendering:optimizeSpeed;
-  image-rendering:-moz-crisp-edges;
-  image-rendering:-o-crisp-edges;
-  image-rendering:-webkit-optimize-contrast;
-  image-rendering:crisp-edges;
-  -ms-interpolation-mode:bicubic;
-  overflow: hidden;
-	
-}
-
-/*styles for body of game page*/
 #gamePage {
-	/*allows background image to take up entire page*/
-	background: url("./images/Hotline.png") no-repeat center center fixed;
-	margin: 0;
-  -webkit-background-size: cover;
-  -moz-background-size: cover;
-  -o-background-size: cover;
-  background-size: cover;
-  /*added from duck hunt*/
-  image-rendering:optimizeSpeed;
-  image-rendering:-moz-crisp-edges;
-  image-rendering:-o-crisp-edges;
-  image-rendering:-webkit-optimize-contrast;
-  image-rendering:crisp-edges;
-  -ms-interpolation-mode:bicubic;
-  overflow: hidden;
+
+	display: flex;
+	align-content: center;
+	flex-direction: column;
+	align-items: center;
+	font-family: 'VT323', monospace;
+	background: #1C45FF;
+/*	max-width: 100vw;
+	max-height: 100vh;*/
 
 }
 
-/*styles for drake's head*/
-#drake {
-	/*background: url("./images/head5.png");*/
-	/*background-repeat: no-repeat;*/
-	width: 10px;
-	height: 10px;
-	border: 3px solid black;
-	background: orange;
-	position: relative;
-	/*z-index: 1;*/
+h1 {	
+	text-align: center;
+	width: 45vw;
+	font-size: 45px;
+	padding: 1%;
+	border: 3px dotted black;
+	background: yellow;	
+	display: flex;
+	flex-direction: column;
+}
+
+#score {	
+	font-size: 25px;
+	/*padding: 1px;*/
+	margin-top: 2%;
+	text-align: center;
+}
+
+#obsticles {	
+	font-size: 25px;
+	text-align: center;
+}
+
+
+#container {
+	background-color: white;
+	box-sizing: border-box;
+	-webkit-box-shadow: 1px -3px 25px 6px rgba(0,0,0,1);
+	-moz-box-shadow: 1px -3px 25px 6px rgba(0,0,0,1);
+	box-shadow: 1px -3px 25px 6px rgba(0,0,0,1);
+	width: 50vw;
+	/*position: relative;*/
+	border: solid black;
+	display: flex;
+	align-items: center;
+	border: 10px solid black;
+	margin-top: -20px;
+	padding: 1px;
+	text-align: center;
+
 }
 
 .square {
-	width: 5vw;
-	height: 5vw;
-	border: 1px solid black; 
+	width: 20px;
+	height: 20px;
 	display: inline-block;
-	padding: 0;
-	margin: 0;
-	float: left;
-	overflow: hidden;
-	position: absolute;
+	border: 1px solid black;
+
 }
 
 .food {
-	position: absolute;
-  background-position: -100px -160px;
-  background: blue;
-  border: 3px solid black;
-  width: 10px;
-  height: 10px;
-  transition-timing-function: linear;
-
-	/*width: 10px;
-	height: 10px;
-	border-radius: 50%;
-	border: 3px solid black;
-	transition: top 2s, left 2s;
-  transition-timing-function: linear;
-  background-position: -100px -160px;
-  z-index: 1;*/
+	background: #0021B2;
+	width: 20px;
+	height: 20px;
+	border: 1px solid black; 
+	display: inline-block;
+	/*float: right;
+	left: -50%; /* or right 50% */*/
+/*	text-align: left;*/
 }
 
-#body {
-	height: 50px;
-	width: 50px;
-	background: red;
-	border-radius: 50%;
+.head {
+	background: #FF8519;
+	width: 20px;
+	height: 20px;
+	border: 1px solid black; 
+	display: inline-block;
+
 }
+
+.obsticle {
+	background: black;
+	width: 20px;
+	height: 20px;
+	/*border: 1px solid black;*/ 
+	display: inline-block;
+
+}
+
+
+
