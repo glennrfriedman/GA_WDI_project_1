@@ -41,18 +41,44 @@
 }
 
 
-.hide {
+#instructionsText {
 	display: none;
 }
 
 .show {
 	display: block;
+	align-content: center;
+	color: white;
+	font-size: 20px;
 }
 
 /*main page heading*/
 #mainPageHead {
 	font-size: 80px;
 }
+
+#snakeboy {
+	top: 65%;
+	position: fixed;
+	background: #008000;
+	width: 10vh;
+	height: 10vh;
+	border: 1px solid black;
+	display: inline-block;
+	/*animation: snakeboy 1s linear infinite;*/
+}
+
+/*@keyframes snakeboy {
+	0%{
+		right: 20%;
+	}
+	50%{
+		
+	}
+	100%{
+		left: 20%;
+	}
+}*/
 
 /*h1 container with title, score, obsticles on gamepage*/
 h1 {
@@ -136,7 +162,7 @@ h1 {
 	width: 20px;
 	height: 20px;
 	display: inline-block;
-	border: 1px solid black;
+	/*border: 1px solid black;*/
 
 }
 
@@ -145,7 +171,7 @@ h1 {
 	background: #0021B2;
 	width: 20px;
 	height: 20px;
-	border: 1px solid black; 
+	/*border: 1px solid black;*/ 
 	display: inline-block;
 	/*float: right;
 	left: -50%; /* or right 50% */*/
@@ -157,7 +183,7 @@ h1 {
 	background: #008000;
 	width: 20px;
 	height: 20px;
-	border: 1px solid black; 
+	/*border: 1px solid black;*/ 
 	display: inline-block;
 
 }
@@ -167,7 +193,7 @@ h1 {
 	background: red;
 	width: 20px;
 	height: 20px;
-	border: 1px solid black; 
+	/*border: 1px solid black;*/ 
 	display: inline-block;
 
 }

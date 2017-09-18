@@ -1,32 +1,23 @@
 $(function(){
 
-	// $('.popup').click(function(){
-	// 	$('#instructions').toggleClass('.hide');
-	// })
+	//animation fo snakeboy on first screen
+	function animate() {
+		$(document).ready(function() {
+    	$("#snakeboy").animate({right: "+30%"}, 1000)
+    								.animate({right: "+60%"}, 1000)
+			});	
+	}
+	// animate();
+	var animate = setInterval(animate, 1000);
 
-	//speed automatically set at regular
-	var speed = 125;
-
-	//changes speed on click of speed options
-	$('#fast').click(function(){
-		speed = 80;
-		alert("You have selected fast speed! SLOW DOWN!")
-		console.log(speed);
-		return speed;
-	})
-
-	$('#regular').click(function(){
-		speed = 125;
-		alert("You have selected regular speed! GOOD LUCK!")
-		console.log(speed);
-		return speed;
-	})
-
-	$('#slow').click(function(){
-		speed = 200;
-		alert("You have selected slow speed! HURRY UP!")
-		console.log(speed);
-		return speed;
+	//allows instructions to popup when clicked
+	$('.popup').click(function(){
+		$('#instructionsText').toggle('display');
+		clearInterval(animate);
+		$('#snakeboy').toggle('display');
+		// setTimeout(function(){
+		// setInterval(animate, 1000)
+		// }, 1)
 	})
 
 	var $board = $('#container');
@@ -170,13 +161,13 @@ $(function(){
 					//makes another obstacle 
 					this.makeObstacle();
 					//creates obstacle bonuses 
-					if(obstacle < 10){
+					if(obstacle <= 10){
 						score+=10;
 					}
-					else if(obstacle > 10 && obstacle < 20){
+					else if(obstacle > 10 && obstacle <= 20){
 						score+=20;
 					}
-					else if(obstacle > 20 && obstacle < 30){
+					else if(obstacle > 20 && obstacle <= 30){
 						score+=30;
 					}
 				  else if(obstacle > 30){
@@ -195,6 +186,8 @@ $(function(){
 		},
 
 		MoveHeadConst: function(direction) {
+
+				speed = 125;
 
 				var self = this;
 				self.direction = direction;
@@ -217,8 +210,36 @@ $(function(){
 								    self.direction = 'stop';   
 								 }
 							});
-			
-			setInterval(function(){
+
+				// changes speed on click of speed options
+				$('#fast').click(function(){
+					clearInterval(movement);
+					speed = 10;
+					alert("You have selected fast speed! SLOW DOWN!")
+					var movement = setInterval(function(){
+					game.MoveHead(self.direction);
+					}, speed);
+				})
+
+				$('#regular').click(function(){
+					clearInterval(movement);
+					speed = 125;
+					alert("You have selected regular speed! GOOD LUCK!")
+					var movement = setInterval(function(){
+					game.MoveHead(self.direction);
+					}, speed);
+				})
+
+				$('#slow').click(function(){
+					clearInterval(movement);
+					speed = 5000;
+					alert("You have selected slow speed! HURRY UP!")
+					var movement = setInterval(function(){
+					game.MoveHead(self.direction);
+					}, speed);
+				})
+					
+			var movement = setInterval(function(){
 
 					game.MoveHead(self.direction);
 						
