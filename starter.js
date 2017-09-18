@@ -9,21 +9,24 @@ $(function(){
 
 	//changes speed on click of speed options
 	$('#fast').click(function(){
-		speed = 90;
+		speed = 80;
 		alert("You have selected fast speed! SLOW DOWN!")
 		console.log(speed);
+		return speed;
 	})
 
 	$('#regular').click(function(){
 		speed = 125;
 		alert("You have selected regular speed! GOOD LUCK!")
 		console.log(speed);
+		return speed;
 	})
 
 	$('#slow').click(function(){
-		speed = 175;
+		speed = 200;
 		alert("You have selected slow speed! HURRY UP!")
 		console.log(speed);
+		return speed;
 	})
 
 	var $board = $('#container');
@@ -40,18 +43,36 @@ $(function(){
 
 	var game = {
 
+		stop: function(){
+			game.MoveHead('stop');
+		},
 		//issue with head taking on direction after game resets 
-		reset: function() {
-
+		reset: function() {	
+			alert('GAME OVER! YOUR SCORE WAS ' + score + '!')
+			speed = 125;
+			//reset score
 			score = 0;
+			document.getElementById("score").textContent = "Score: " + score;
+			//reset obstacle
 			obstacle = 0;
-			this.makeFood();
-			this.createHead();
-
+			document.getElementById("obstacles").textContent = "Obstacles: " + obstacle;
+			//removes all food pieces
+			$('.food').removeClass("food").addClass('square');
+			//remove all obstacles
+			$('.obstacle').removeClass("obstacle").addClass('square');
+			//remove head
+			$('.head').removeClass("head").addClass('square');
+			//make another food
+			game.makeFood();
+			//add head back to board
+			game.createHead();
+		  this.direction = 'stop';
+		
 		},
 
 		//render function
 		createBoard: function(){
+
 			//var that assigns # to each square
 			var s = 0
 
@@ -80,6 +101,8 @@ $(function(){
 		}
 			//calling makeFood function to randomly add food class to a square
 			this.makeFood();
+
+			this.createHead();
 	//end of board function in game object
 	},
 
@@ -115,9 +138,6 @@ $(function(){
 							curRow;
 						}
 
-						//find for reset - look for if now class has a head and if that's the case then reset
-						//COME BACK TO!
-
 						//finds next square
 						var found = squares.find(function(square){
 										 					return parseInt(square.attr('data-row')) === curRow && 
@@ -129,32 +149,18 @@ $(function(){
 
 						},
 
-		// stopHead: function(direction){
-		// 	this.MoveHead('null');
-		// },
-
-		MoveHead:  function(direction) {
+		MoveHead: function(direction) {
 
 				var $targetDiv = this.GetTargetDiv(direction);
-				//adds class of head to the next targetDiv
+
 				if($targetDiv === undefined){
-
-					$('.food').removeClass("food").addClass('square');
-				
-					$('.obstacle').removeClass("obstacle").addClass('square');
-					
-					$('.head').removeClass("head").addClass('square');	
-
-					setTimeout(function(){
-						alert('GAME OVER! YOUR SCORE WAS ' + score + '!')
 						game.reset();
-					}, 1);
-					
+						return;
 				}
 
-				else {
-					$targetDiv.addClass("head");
-				}
+				//adds class of head to the next targetDiv				
+				$targetDiv.addClass("head");
+				
 				
 				//removes food when head moves over it
 				if($targetDiv.hasClass("food")){
@@ -162,7 +168,7 @@ $(function(){
 					//makes another food 
 					this.makeFood();
 					//makes another obstacle 
-					this.makeobstacle();
+					this.makeObstacle();
 					//creates obstacle bonuses 
 					if(obstacle < 10){
 						score+=10;
@@ -182,47 +188,39 @@ $(function(){
 
 				//end game when obstacle is hit 
 				if($targetDiv.hasClass("obstacle")){
-					
-					$('.food').removeClass("food").addClass('square');
-				
-					$('.obstacle').removeClass("obstacle").addClass('square');
-					
-					$('.head').removeClass("head").addClass('square');	
-
-					setTimeout(function(){
-						alert('GAME OVER! YOUR SCORE WAS ' + score + '!')
 						game.reset();
-					}, 1);
 				}
 
 				return $targetDiv;
-
 		},
 
 		MoveHeadConst: function(direction) {
 
+				var self = this;
+				self.direction = direction;
+
 				//sets keydown on interval making snake move by setting direction
 				$(document).keydown(function(event){
 								if(event.which == 38) {
-								   direction = 'up';
+								   self.direction = 'up';
 								} 
 								else if(event.which == 37) {
-								    direction = 'left';           
+								    self.direction = 'left';           
 								} 
 								else if(event.which == 39) {
-								    direction = 'right';        
+								    self.direction = 'right';        
 								} 
 								if(event.which == 40) {
-								    direction = 'down';    
+								    self.direction = 'down';    
 								}
 								else if(event.which == 32) {
-								    direction = 'stop';   
+								    self.direction = 'stop';   
 								 }
 							});
 			
 			setInterval(function(){
 
-					game.MoveHead(direction);
+					game.MoveHead(self.direction);
 						
 				}, speed);
 		
@@ -243,7 +241,7 @@ $(function(){
 			}, 
 
 		//same function as make Food but also updates obstacles count and text
-		makeobstacle: function() {
+		makeObstacle: function() {
 
 			var randomNum = Math.floor(Math.random()*squares.length);
 
@@ -256,20 +254,17 @@ $(function(){
 
 			obstacle+=1
 				
-			document.getElementById("obstacles").textContent = "obstacles: " + obstacle;
+			document.getElementById("obstacles").textContent = "Obstacles: " + obstacle;
 
 		}
 
 //end of game object
 }
 
-// console.log(game.squares);
-
 //initializes game
 function init(){
 
 	game.createBoard();
-	game.createHead();
 	game.MoveHeadConst();
 
 //end of init
