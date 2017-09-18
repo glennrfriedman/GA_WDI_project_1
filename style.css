@@ -46,7 +46,9 @@
 	font-size: 80px;
 }
 
-h1 {	
+h1 {
+	margin-top: 5px;
+	margin-bottom: 2%;
 	text-align: center;
 	width: 700px;
 	font-size: 45px;
@@ -57,14 +59,41 @@ h1 {
 	flex-direction: column;
 }
 
+.container2 {
+	display: flex;
+	/*align-content: center;*/
+	justify-content: center;
+	width: 600px;
+	height: 50px;
+	margin-bottom: 2%;
+}
+
 #score {	
-	font-size: 25px;
-	/*padding: 1px;*/
+	font-size: 30px;
+	padding: 0;
 	margin-top: 2%;
 	text-align: center;
 }
 
-#obsticles {	
+.speed {
+	margin-top: 0px;
+	font-size: 20px;
+	width: 500px;
+	text-align: center;
+	padding: 0;
+}
+
+.bar {
+	display: inline;
+}
+
+.bar:hover {
+	background: white;
+	border: 3px dotted black;
+	
+}
+
+#obstacles {	
 	font-size: 25px;
 	text-align: center;
 }
@@ -92,7 +121,7 @@ h1 {
 	width: 20px;
 	height: 20px;
 	display: inline-block;
-	border: 1px solid black;
+	/*border: 1px solid black;*/
 
 }
 
@@ -100,7 +129,7 @@ h1 {
 	background: #0021B2;
 	width: 20px;
 	height: 20px;
-	border: 1px solid black; 
+	/*border: 1px solid black;*/ 
 	display: inline-block;
 	/*float: right;
 	left: -50%; /* or right 50% */*/
@@ -111,16 +140,16 @@ h1 {
 	background: #FF8519;
 	width: 20px;
 	height: 20px;
-	border: 1px solid black; 
+	/*border: 1px solid black;*/ 
 	display: inline-block;
 
 }
 
-.obsticle {
+.obstacle {
 	background: red;
 	width: 20px;
 	height: 20px;
-	border: 1px solid black; 
+	/*border: 1px solid black;*/ 
 	display: inline-block;
 
 }

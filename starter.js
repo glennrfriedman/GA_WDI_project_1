@@ -2,35 +2,41 @@ $(function(){
 
 	// $('.popup').click(function(){
 	// 	$('#instructions').toggleClass('.hide');
-	// 	$('#instructions').css({
-	// 		"width":"650px", 
-	// 		"background":"white",
-	// 		"border":"solid black",
-	// 		"-webkit-box-shadow":"1px -3px 25px 6px rgba(0,0,0,1)",
-	// 		"-moz-box-shadow":"1px -3px 25px 6px rgba(0,0,0,1)",
-	// 		"box-shadow":"1px -3px 25px 6px rgba(0,0,0,1)"
-	// 	});
 	// })
+
+	//speed automatically set at regular
+	var speed = 125;
+
+	//changes speed on click of speed options
+	$('#fast').click(function(){
+		speed = 90;
+		alert("You have selected fast speed! SLOW DOWN!")
+		console.log(speed);
+	})
+
+	$('#regular').click(function(){
+		speed = 125;
+		alert("You have selected regular speed! GOOD LUCK!")
+		console.log(speed);
+	})
+
+	$('#slow').click(function(){
+		speed = 175;
+		alert("You have selected slow speed! HURRY UP!")
+		console.log(speed);
+	})
 
 	var $board = $('#container');
 
 	var squares = []
 
+	//set and update score 
 	var score = 0; 
-
 	document.getElementById("score").textContent = "Score: " + score;
 
-	var obsticle = 0; 
-
-	document.getElementById("obsticles").textContent = "Obsticles: " + obsticle;
-
-	//FAST
-	var speed = 125;
-
-	//SLOW
-	// var speed = 150
-	//MEDIUM
-	// var speed = 125;
+	//set and update obstacle count
+	var obstacle = 0; 
+	document.getElementById("obstacles").textContent = "Obstacles: " + obstacle;
 
 	var game = {
 
@@ -38,22 +44,9 @@ $(function(){
 		reset: function() {
 
 			score = 0;
-			obsticle = 0;
+			obstacle = 0;
 			this.makeFood();
 			this.createHead();
-			// this.GetTargetDiv("null");   
-
-		// 	for(var i = 0; i < squares.length; i++){
-		// 		if(squares[i].hasClass('obsticle' || squares[i].hasClass('food')) || squares[i].hasClass('head')){
-		// 			squares[i].removeClass('obsticle')
-		// 			squares[i].removeClass('food');
-		// 			squares[i].removeClass('head');
-		// 			squares[i].addClass('square');
-		// 		}
-
-		// 	this.createHead();
-
-		// }
 
 		},
 
@@ -117,7 +110,7 @@ $(function(){
 						} else if (direction === "down") {
 							curCol++;
 						}
-						else if (direction === "null") {
+						else if (direction === "stop") {
 							curCol;
 							curRow;
 						}
@@ -136,63 +129,71 @@ $(function(){
 
 						},
 
-		// //working to stop head from moving - NOT INVOKED 					
-		// stopHead: function(){
-
-		// 		speed = 0; 
-
+		// stopHead: function(direction){
+		// 	this.MoveHead('null');
 		// },
 
 		MoveHead:  function(direction) {
-				//target div directoin
+
 				var $targetDiv = this.GetTargetDiv(direction);
 				//adds class of head to the next targetDiv
-				$targetDiv.addClass("head");
+				if($targetDiv === undefined){
+
+					$('.food').removeClass("food").addClass('square');
+				
+					$('.obstacle').removeClass("obstacle").addClass('square');
+					
+					$('.head').removeClass("head").addClass('square');	
+
+					setTimeout(function(){
+						alert('GAME OVER! YOUR SCORE WAS ' + score + '!')
+						game.reset();
+					}, 1);
+					
+				}
+
+				else {
+					$targetDiv.addClass("head");
+				}
 				
 				//removes food when head moves over it
 				if($targetDiv.hasClass("food")){
 					$targetDiv.removeClass("food");
 					//makes another food 
 					this.makeFood();
-					//makes another obsticle 
-					this.makeObsticle();
-					//creates obsticle bonuses 
-					if(obsticle < 10){
+					//makes another obstacle 
+					this.makeobstacle();
+					//creates obstacle bonuses 
+					if(obstacle < 10){
 						score+=10;
 					}
-					else if(obsticle > 10 && obsticle < 20){
+					else if(obstacle > 10 && obstacle < 20){
 						score+=20;
 					}
-					else if(obsticle > 20 && obsticle < 30){
+					else if(obstacle > 20 && obstacle < 30){
 						score+=30;
 					}
-				  else if(obsticle > 30){
+				  else if(obstacle > 30){
 						score+=50;
 					}
 					//update score text 
 					document.getElementById("score").textContent = "Score: " + score;
 				}
 
-				//end game when obsticle is hit 
-				if($targetDiv.hasClass("obsticle")){
+				//end game when obstacle is hit 
+				if($targetDiv.hasClass("obstacle")){
+					
 					$('.food').removeClass("food").addClass('square');
-					$('.obsticle').removeClass("obsticle").addClass('square');
-					$('.head').removeClass("head").addClass('square');
-					this.reset();	
+				
+					$('.obstacle').removeClass("obstacle").addClass('square');
+					
+					$('.head').removeClass("head").addClass('square');	
+
 					setTimeout(function(){
-						//not getting correct score. 
 						alert('GAME OVER! YOUR SCORE WAS ' + score + '!')
+						game.reset();
 					}, 1);
 				}
-
-				//WORK ON END GAME WHEN WALL IS HIT 
-				// else if($targetDiv.hasClass()) {
-				// 	setTimeout(function(){
-				// 		alert('GAME OVER! YOUR SCORE WAS ' + score  + '!')
-				// 	}, 1);
-				// 	this.reset();
-	
-				// }
 
 				return $targetDiv;
 
@@ -215,7 +216,7 @@ $(function(){
 								    direction = 'down';    
 								}
 								else if(event.which == 32) {
-								    direction = 'null';   
+								    direction = 'stop';   
 								 }
 							});
 			
@@ -241,21 +242,21 @@ $(function(){
 			
 			}, 
 
-		//same function as make Food but also updates obsticles count and text
-		makeObsticle: function() {
+		//same function as make Food but also updates obstacles count and text
+		makeobstacle: function() {
 
 			var randomNum = Math.floor(Math.random()*squares.length);
 
 			if($('.head').attr('id') !== randomNum && $('.food').attr('id') !== randomNum){
 
-					var obsticlePos = $('#'+randomNum);
-					obsticlePos.attr('class', 'obsticle');
+					var obstaclePos = $('#'+randomNum);
+					obstaclePos.attr('class', 'obstacle');
 
 				}
 
-			obsticle+=1
+			obstacle+=1
 				
-			document.getElementById("obsticles").textContent = "Obsticles: " + obsticle;
+			document.getElementById("obstacles").textContent = "obstacles: " + obstacle;
 
 		}
 
