@@ -15,7 +15,7 @@
 
 /*styling for main page body*/
 #mainPage{
-	max-height: 100vh;
+	/*max-height: 100vh;*/
 	display: flex;
 	align-content: center;
 	flex-direction: column;
@@ -85,7 +85,7 @@ h1 {
 	margin-top: 5px;
 	margin-bottom: 2%;
 	text-align: center;
-	width: 700px;
+	width: 60vw;
 	font-size: 45px;
 	padding: 1%;
 	border: 3px dotted black;
@@ -98,8 +98,8 @@ h1 {
 .container2 {
 	display: flex;
 	justify-content: center;
-	width: 600px;
-	height: 50px;
+	width: 50vw;
+	height: 5vh;
 	margin-bottom: 2%;
 }
 
@@ -145,7 +145,7 @@ h1 {
 	-webkit-box-shadow: 1px -3px 25px 6px rgba(0,0,0,1);
 	-moz-box-shadow: 1px -3px 25px 6px rgba(0,0,0,1);
 	box-shadow: 1px -3px 25px 6px rgba(0,0,0,1);
-	width: 75vh;
+	width: 80vh;
 	/*position: relative;*/
 	border: solid black;
 	display: flex;
@@ -159,8 +159,8 @@ h1 {
 
 /*styling for blank squares*/
 .square {
-	width: 20px;
-	height: 20px;
+	width: 2vh;
+	height: 2vh;
 	display: inline-block;
 	/*border: 1px solid black;*/
 
@@ -169,8 +169,8 @@ h1 {
 /*styling for food*/
 .food {
 	background: #0021B2;
-	width: 20px;
-	height: 20px;
+	width: 2vh;
+	height: 2vh;
 	/*border: 1px solid black;*/ 
 	display: inline-block;
 	/*float: right;
@@ -181,8 +181,8 @@ h1 {
 /*styling for head*/
 .head {
 	background: #008000;
-	width: 20px;
-	height: 20px;
+	width: 2vh;
+	height: 2vh;
 	/*border: 1px solid black;*/ 
 	display: inline-block;
 
@@ -191,8 +191,8 @@ h1 {
 /*styling for obstacles*/
 .obstacle {
 	background: red;
-	width: 20px;
-	height: 20px;
+	width: 2vh;
+	height: 2vh;
 	/*border: 1px solid black;*/ 
 	display: inline-block;
 

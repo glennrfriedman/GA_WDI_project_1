@@ -1,23 +1,22 @@
 $(function(){
 
 	//animation fo snakeboy on first screen
-	function animate() {
+	function animated() {
 		$(document).ready(function() {
     	$("#snakeboy").animate({right: "+30%"}, 1000)
     								.animate({right: "+60%"}, 1000)
 			});	
 	}
-	// animate();
-	var animate = setInterval(animate, 1000);
+
+	var animate = setInterval(animated, 1);
+
+	var view = true;
 
 	//allows instructions to popup when clicked
 	$('.popup').click(function(){
-		$('#instructionsText').toggle('display');
 		clearInterval(animate);
-		$('#snakeboy').toggle('display');
-		// setTimeout(function(){
-		// setInterval(animate, 1000)
-		// }, 1)
+		$('#instructionsText').toggle('display');
+		$('#snakeboy').css('display', 'none');
 	})
 
 	var $board = $('#container');
@@ -152,7 +151,6 @@ $(function(){
 				//adds class of head to the next targetDiv				
 				$targetDiv.addClass("head");
 				
-				
 				//removes food when head moves over it
 				if($targetDiv.hasClass("food")){
 					$targetDiv.removeClass("food");
@@ -187,8 +185,6 @@ $(function(){
 
 		MoveHeadConst: function(direction) {
 
-				speed = 125;
-
 				var self = this;
 				self.direction = direction;
 
@@ -213,37 +209,34 @@ $(function(){
 
 				// changes speed on click of speed options
 				$('#fast').click(function(){
+					alert("You have selected FAST speed! SLOW DOWN!")
 					clearInterval(movement);
-					speed = 10;
-					alert("You have selected fast speed! SLOW DOWN!")
-					var movement = setInterval(function(){
-					game.MoveHead(self.direction);
-					}, speed);
+					movement = setInterval(function(){
+						game.MoveHead(self.direction);		
+						}, 100);
 				})
 
 				$('#regular').click(function(){
+					alert("You have selected REGULAR speed! GOOD LUCK!")
 					clearInterval(movement);
-					speed = 125;
-					alert("You have selected regular speed! GOOD LUCK!")
-					var movement = setInterval(function(){
-					game.MoveHead(self.direction);
-					}, speed);
+					movement = setInterval(function(){
+						game.MoveHead(self.direction);		
+						}, 175);
 				})
 
 				$('#slow').click(function(){
+					alert("You have selected SLOW speed! SLOW DOWN!")
 					clearInterval(movement);
-					speed = 5000;
-					alert("You have selected slow speed! HURRY UP!")
-					var movement = setInterval(function(){
-					game.MoveHead(self.direction);
-					}, speed);
+					movement = setInterval(function(){
+						game.MoveHead(self.direction);		
+						}, 250);
 				})
-					
-			var movement = setInterval(function(){
+
+				var movement = setInterval(function(){
 
 					game.MoveHead(self.direction);
 						
-				}, speed);
+				}, 175);
 		
 		},
 
