@@ -98,7 +98,7 @@ $(function(){
 
 		createHead: function(){
 
-			var square1 = $('#1');
+			var square1 = $('#210');
 
 			square1.attr('class', 'head');
 
