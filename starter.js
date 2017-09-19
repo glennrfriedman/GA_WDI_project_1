@@ -245,7 +245,7 @@ $(function(){
 			//gets random number of square
 			var randomNum = Math.floor(Math.random()*squares.length);
 			//if the head doesn't have the same square # as a randomNUm generated then create a new food
-			if($('.head').attr('id') !== randomNum){
+			if($('.head').attr('id') !== randomNum && ('.obstacle').attr('id') !== randomNum){
 
 					var foodPos = $('#'+randomNum);
 					foodPos.attr('class', 'food');
