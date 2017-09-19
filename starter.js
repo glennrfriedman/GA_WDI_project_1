@@ -31,6 +31,8 @@ $(function(){
 	var obstacle = 0; 
 	document.getElementById("obstacles").textContent = "Obstacles: " + obstacle;
 
+	var obsCheck = 0;
+
 	var game = {
 
 		stop: function(){
@@ -245,7 +247,7 @@ $(function(){
 			//gets random number of square
 			var randomNum = Math.floor(Math.random()*squares.length);
 			//if the head doesn't have the same square # as a randomNUm generated then create a new food
-			if($('.head').attr('id') !== randomNum){
+			if($('.head').attr('id') !== randomNum && randomNum !== obsCheck){
 
 					var foodPos = $('#'+randomNum);
 					foodPos.attr('class', 'food');
@@ -257,13 +259,21 @@ $(function(){
 		//same function as make Food but also updates obstacles count and text
 		makeObstacle: function() {
 
-			var randomNum = Math.floor(Math.random()*squares.length);
+			var randomNumObs = Math.floor(Math.random()*squares.length);
 
-			if($('.head').attr('id') !== randomNum && $('.food').attr('id') !== randomNum){
+			obsCheck = randomNumObs;
 
-					var obstaclePos = $('#'+randomNum);
+			console.log(obsCheck);
+
+			obsArr = [];
+
+			obsArr.unshift(randomNumObs);
+
+			if($('.head').attr('id') !== randomNumObs && $('.food').attr('id') !== randomNumObs && randomNumObs !== obsArr){
+
+					var obstaclePos = $('#'+randomNumObs);
 					obstaclePos.attr('class', 'obstacle');
-
+				
 				}
 
 			obstacle+=1
